@@ -27,16 +27,54 @@
 # Задание - 3
 # Создайте функцию, принимающую неограниченное количество строковых аргументов,
 # верните самую длинную строку из полученных аргументов
-def max_string(*words):
-    list_of_lenght = []
-    for word in words:
-        lenght_of_word = len(word)
-    print(lenght_of_word)
-    #     list_of_lenght.append(lenght_of_word)
-    # longest_word = list_of_lenght.index(max(list_of_lenght))
-    # print(words[longest_word])
+# def max_string(*words):
+#     list_of_lenght = []
+#     for word in words:
+#         lenght_of_word = len(word)
+#     print(lenght_of_word)
+#     #     list_of_lenght.append(lenght_of_word)
+#     # longest_word = list_of_lenght.index(max(list_of_lenght))
+#     # print(words[longest_word])
+#
+# megastring = ("строка", "составленная", "из", "других", "слов")
+# max_string(megastring)
 
-megastring = ("строка", "составленная", "из", "других", "слов")
-max_string(megastring)
+
+# Задание - 1
+# Вам даны 2 списка одинаковой длины, в первом списке имена людей, во втором зарплаты,
+# вам необходимо получить на выходе словарь, где ключ - имя, значение - зарплата.
+# Запишите результаты в файл salary.txt так, чтобы на каждой строке было 2 столбца,
+# столбцы разделяются пробелом, тире, пробелом. в первом имя, во втором зарплата, например: Vasya - 5000
+# После чего прочитайте файл, выведите построчно имя и зарплату минус 13% (налоги ведь),
+# Есть условие, не отображать людей получающих более зарплату 500000, как именно
+#  выполнить условие решать вам, можете не писать в файл
+# можете не выводить, подумайте какой способ будет наиболее правильным и оптимальным,
+#  если скажем эти файлы потом придется передавать.
+# Так же при выводе имя должно быть полностью в верхнем регистре!
+# Подумайте вспоминая урок, как это можно сделать максимально кратко, используя возможности языка Python.
+
+import os
+peoples = ['Иванов', 'Петров', 'Смирнов', 'Рокфеллер', 'Гейтс']
+pays = [10000, 20000, 15000, 1000000, 550000]
+pay_list = dict(zip(peoples, pays))
+big_salary = []
+for key, item in pay_list.items():
+    if item >= 500000:
+        big_salary.append(key)
+for key in big_salary:
+    del pay_list[key]
+# print(pay_list)
+
+salary = open('salary.txt', 'w', encoding='utf-8')
+for people, pay in pay_list.items():
+    salary.write(people+' - '+str(pay)+'\n')
+salary.close()
+
+with open('salary.txt', encoding='utf-8') as salary:
+    for line in salary:
+        zp = line.find('-') + 2
+        a = float(line[zp:]) * 0.87
+        # print(a)
+        print(line[:zp - 1].upper(), a)
 
 
